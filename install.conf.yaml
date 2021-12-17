@@ -1,0 +1,15 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.zshrc: zshrc/.zshrc
+    ~/.config/nvim/init.vim: nvim/init.vim
+    ~/.config/nvim/coc-settings.json: nvim/coc-settings.json
+    ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
