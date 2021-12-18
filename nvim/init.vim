@@ -15,24 +15,48 @@ set nowritebackup
 set noswapfile
 set nu 
 set foldlevelstart=99
-set scrolloff=7
+set scrolloff=8
+set path+=**
+set hidden
+set splitbelow
+set splitright
+
+"==================================================================================
+"keymaps
+"==================================================================================
+
+let mapleader = "\<space>"
+
+" leader + Q will delete all files in current buffer
+nmap <leader>Q :bufdo bdelete<cr>
+
+" Allow gf to open non-existent files
+map gf: edit <cfile><cr>
+
+" Quicker switching between windows
+nmap <silent> <C-h> <C-w>h
+nmap <silent> <C-j> <C-w>j
+nmap <silent> <C-k> <C-w>k
+nmap <silent> <C-l> <C-w>l
+
+" Reselect visual selection after indenting
+vnoremap < <gv
+vnoremap > >gv
 
 "==================================================================================
 "plugins
 "==================================================================================
 
+" Automatically install vim-plug if it doesn't exist
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.config/nvim/autoload/')
 
 "Colour scheme
-" My fave colour schemes:
-" dracula/dracula-theme, rakr/vim-one, gosukiwi/vim-atom-dark,
-" phanviet/vim-monokai-pro rhysd/vim-color-spring-night arzg/vim-colors-xcode
-" Plug 'jonathanfilip/vim-lucius'
-" Plug 'sonph/onehalf', { 'rtp': 'vim' }
-" Plug 'dracula/vim',{'name':'dracula'}
-" Plug 'tyrannicaltoucan/vim-quantum'
-" Plug 'dikiaap/minimalist'
-" Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'kyoz/purify', { 'rtp': 'vim' }
 
 "Markdown preview
@@ -41,18 +65,13 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 "Autocomplete plugin
 "Also do :CocInstall coc-clangd coc-tsserver coc-eslint coc-json coc-prettier coc-css coc-python coc-java 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'antoinemadec/coc-fzf'
 
 "Language packs
 " Plug 'sheerun/vim-polyglot'
 
-"Nvim motions
-Plug 'phaazon/hop.nvim'
-
 "Buffer navigation
 Plug 'vim-airline/vim-airline'
-
-"Grammar checking because I can't english
-Plug 'rhysd/vim-grammarous'
 
 " Autobrackets
 Plug 'jiangmiao/auto-pairs'
@@ -69,14 +88,8 @@ Plug 'fannheyward/telescope-coc.nvim'
 "git diff
 Plug 'sindrets/diffview.nvim'
 
-"magit
-Plug 'TimUntersberger/neogit'
-
 "todo comments
 Plug 'folke/todo-comments.nvim'
-
-"devicons
-Plug 'kyazdani42/nvim-web-devicons'
 
 "rainbow brackets
 Plug 'frazrepo/vim-rainbow'
@@ -89,10 +102,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'pangloss/vim-javascript' "JS support
 Plug 'leafgarland/typescript-vim' "TS support
 Plug 'peitalin/vim-jsx-typescript'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'maxmellon/vim-jsx-pretty' "JS and JSX syntax
 Plug 'jparise/vim-graphql' "GraphQL syntax
-Plug 'mattn/emmet-vim'
 
 call plug#end()
 
@@ -122,8 +133,10 @@ let g:rainbow_active = 1
 
 " Coc
 let g:coc_global_extensions = [
-  \ 'coc-tsserver'
-  \ ]
+  \ 'coc-tsserver',
+  \ 'coc-json',
+  \ 'coc-css', ]
+
 
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
   let g:coc_global_extensions += ['coc-prettier']
@@ -134,10 +147,31 @@ if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
 endif
 
 " Fzf
-nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles --exclude-standard --others --cached')."\<cr>"
+" Customize the Files command to use ripgrep which respects .gitignore files
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#run(fzf#wrap('files', fzf#vim#with_preview({ 'dir': <q-args>, 'sink': 'e', 'source': 'rg --files --hidden' }), <bang>0))
+
+" Add an AllFiles variation that ignores .gitignore files
+command! -bang -nargs=? -complete=dir AllFiles
+  \ call fzf#run(fzf#wrap('allfiles', fzf#vim#with_preview({ 'dir': <q-args>, 'sink': 'e', 'source': 'rg --files --hidden --no-ignore' }), <bang>0))
+
+nmap <leader>f :Files<cr>
+nmap <leader>F :AllFiles<cr>
+nmap <leader>h :History<cr>
+nmap <leader>b :Buffers<cr>
+
+" Go to definitions
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Vertically split screen
+nnoremap <silent><leader>\ :vs<CR>
 
 " Buffer switching
 nnoremap <F5> :buffers<CR>:buffer<Space>
+nmap <leader>w :bd<cr>
 
 "=================================================================================
 " theming
