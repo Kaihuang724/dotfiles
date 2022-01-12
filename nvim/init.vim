@@ -4,6 +4,7 @@
 
 syntax on
 set ma
+set autoindent
 set mouse=a
 set tabstop=2
 set shiftwidth=2
@@ -42,6 +43,10 @@ nmap <silent> <C-l> <C-w>l
 " Reselect visual selection after indenting
 vnoremap < <gv
 vnoremap > >gv
+
+" Copy from buffer
+map <Leader>y "*y
+map <Leader>p "*p
 
 "==================================================================================
 "plugins
@@ -172,6 +177,19 @@ nnoremap <silent><leader>\ :vs<CR>
 " Buffer switching
 nnoremap <F5> :buffers<CR>:buffer<Space>
 nmap <leader>w :bd<cr>
+
+" Ag: Start ag in the specified directory e.g. :Ag ~/foo
+function! s:ag_in(bang, ...)
+    if !isdirectory(a:1)
+        throw 'not a valid directory: ' .. a:1
+    endif
+    " Press `?' to enable preview window.
+    call fzf#vim#ag(join(a:000[1:], ' '),
+                \ fzf#vim#with_preview({'dir': a:1}, 'right:50%', '?'), a:bang)
+endfunction
+
+" Ag call a modified version of Ag where first arg is directory to search
+command! -bang -nargs=+ -complete=dir Ag call s:ag_in(<bang>0, <f-args>)
 
 "=================================================================================
 " theming
