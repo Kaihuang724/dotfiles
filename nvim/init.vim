@@ -110,11 +110,30 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'maxmellon/vim-jsx-pretty' "JS and JSX syntax
 Plug 'jparise/vim-graphql' "GraphQL syntax
 
+" markdown pages
+" tabular plugin is used to format tables
+Plug 'godlygeek/tabular'
+" JSON front matter highlight plugin
+Plug 'elzr/vim-json'
+Plug 'plasticboy/vim-markdown'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+
+" rust support
+Plug 'rust-lang/rust.vim'
+
+" solidity support
+Plug 'tomlion/vim-solidity'
+
 call plug#end()
 
 "==============================================================================
 " plugin configs
 "==============================================================================
+" Ultisnips
+let g:UltiSnipsExpandTrigger="<tab>"  " use <Tab> to trigger autocompletion
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 let $FZF_DEFAULT_OPTS='--reverse'
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
