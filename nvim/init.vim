@@ -71,7 +71,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 "Also do :CocInstall coc-clangd coc-tsserver coc-eslint coc-json coc-prettier coc-css coc-python coc-java
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'antoinemadec/coc-fzf'
-Plug 'codechips/coc-svelte', {'do': 'npm install'}
 
 "Language packs
 " Plug 'sheerun/vim-polyglot'
@@ -110,7 +109,6 @@ Plug 'leafgarland/typescript-vim' "TS support
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'maxmellon/vim-jsx-pretty' "JS and JSX syntax
 Plug 'jparise/vim-graphql' "GraphQL syntax
-Plug 'evanleck/vim-svelte', {'branch': 'main'} "Svelte syntax
 
 " markdown pages
 " tabular plugin is used to format tables
@@ -211,12 +209,6 @@ endfunction
 
 " Ag call a modified version of Ag where first arg is directory to search
 command! -bang -nargs=+ -complete=dir Ag call s:ag_in(<bang>0, <f-args>)
-
-" Svelte typescript
-let g:svelte_preprocessor_tags = [
-  \ { 'name': 'ts', 'tag': 'script', 'as': 'typescript' }
-  \ ]
-let g:svelte_preprocessors = ['ts']
 
 "=================================================================================
 " theming
