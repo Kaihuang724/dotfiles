@@ -14,7 +14,7 @@ set autoread
 set nobackup
 set nowritebackup
 set noswapfile
-set nu 
+set nu
 set foldlevelstart=99
 set scrolloff=8
 set path+=**
@@ -68,9 +68,10 @@ Plug 'kyoz/purify', { 'rtp': 'vim' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 
 "Autocomplete plugin
-"Also do :CocInstall coc-clangd coc-tsserver coc-eslint coc-json coc-prettier coc-css coc-python coc-java 
+"Also do :CocInstall coc-clangd coc-tsserver coc-eslint coc-json coc-prettier coc-css coc-python coc-java
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'antoinemadec/coc-fzf'
+Plug 'codechips/coc-svelte', {'do': 'npm install'}
 
 "Language packs
 " Plug 'sheerun/vim-polyglot'
@@ -109,6 +110,7 @@ Plug 'leafgarland/typescript-vim' "TS support
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'maxmellon/vim-jsx-pretty' "JS and JSX syntax
 Plug 'jparise/vim-graphql' "GraphQL syntax
+Plug 'evanleck/vim-svelte', {'branch': 'main'} "Svelte syntax
 
 " markdown pages
 " tabular plugin is used to format tables
@@ -210,6 +212,12 @@ endfunction
 " Ag call a modified version of Ag where first arg is directory to search
 command! -bang -nargs=+ -complete=dir Ag call s:ag_in(<bang>0, <f-args>)
 
+" Svelte typescript
+let g:svelte_preprocessor_tags = [
+  \ { 'name': 'ts', 'tag': 'script', 'as': 'typescript' }
+  \ ]
+let g:svelte_preprocessors = ['ts']
+
 "=================================================================================
 " theming
 "=================================================================================
@@ -222,5 +230,5 @@ colorscheme purify
 "Airline theme
 let g:airline_theme='purify'
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#tabline#buffer_nr_show = 1

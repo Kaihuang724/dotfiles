@@ -8,7 +8,8 @@
     "json",
     "javascriptreact",
     "typescript.tsx",
-    "rust"
+    "rust",
+    "svelte"
   ],
   "eslint.filetypes": [
     "javascript",
@@ -16,7 +17,8 @@
     "typescriptreact",
     "javascriptreact",
     "typescript.tsx",
-    "rust"
+    "rust",
+    "svelte"
   ],
   "diagnostic.errorSign": "•",
   "diagnostic.warningSign": "•",
@@ -27,5 +29,6 @@
   "rust-analyzer.procMacro.enable": true,
   "rust-analyzer.diagnostics.disabled": [
     "unresolved-import"
-  ]
+  ],
+  "svelte.enable-ts-plugin": true
 }
