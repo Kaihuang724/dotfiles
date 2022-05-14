@@ -131,5 +131,8 @@ if [ -f '/Users/kaihuang/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/
 # Radicle home path
 export PATH="$HOME/.radicle/bin:$PATH"
 
+# SSH-agent export
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
 # Starship initialize
 eval "$(starship init zsh)"
