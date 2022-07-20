@@ -72,9 +72,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'antoinemadec/coc-fzf'
 
-"Language packs
-" Plug 'sheerun/vim-polyglot'
-
 "Buffer navigation
 Plug 'vim-airline/vim-airline'
 
@@ -125,6 +122,10 @@ Plug 'rust-lang/rust.vim'
 " solidity support
 Plug 'tomlion/vim-solidity'
 
+" Svelte support
+Plug 'othree/html5.vim'
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
+
 call plug#end()
 
 "==============================================================================
@@ -160,7 +161,6 @@ let g:coc_global_extensions = [
   \ 'coc-tsserver',
   \ 'coc-json',
   \ 'coc-css', ]
-
 
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
   let g:coc_global_extensions += ['coc-prettier']
@@ -209,6 +209,9 @@ endfunction
 
 " Ag call a modified version of Ag where first arg is directory to search
 command! -bang -nargs=+ -complete=dir Ag call s:ag_in(<bang>0, <f-args>)
+
+" Svelte preprocessor
+let g:svelte_preprocessors = ['typescript']
 
 "=================================================================================
 " theming

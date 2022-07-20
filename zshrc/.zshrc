@@ -131,8 +131,15 @@ if [ -f '/Users/kaihuang/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/
 # Radicle home path
 export PATH="$HOME/.radicle/bin:$PATH"
 
-# SSH-agent export
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+# Cargo install
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# Go install
+export PATH="$PATH:/usr/local/go/bin"
+
+if [ -n "$DESKTOP_SESSION" ]; then
+    export SSH_AUTH_SOCK
+fi
 
 # Starship initialize
 eval "$(starship init zsh)"
