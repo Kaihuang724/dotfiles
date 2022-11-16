@@ -64,6 +64,9 @@ call plug#begin('~/.config/nvim/autoload/')
 "Colour scheme
 Plug 'kyoz/purify', { 'rtp': 'vim' }
 
+"Polyglot
+Plug 'sheerun/vim-polyglot'
+
 "Markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 
@@ -100,19 +103,6 @@ Plug 'frazrepo/vim-rainbow'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-"fullstack dev
-Plug 'pangloss/vim-javascript' "JS support
-Plug 'leafgarland/typescript-vim' "TS support
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'maxmellon/vim-jsx-pretty' "JS and JSX syntax
-Plug 'jparise/vim-graphql' "GraphQL syntax
-
-" markdown pages
-" tabular plugin is used to format tables
-Plug 'godlygeek/tabular'
-" JSON front matter highlight plugin
-Plug 'elzr/vim-json'
-Plug 'plasticboy/vim-markdown'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 
@@ -121,10 +111,6 @@ Plug 'rust-lang/rust.vim'
 
 " solidity support
 Plug 'tomlion/vim-solidity'
-
-" Svelte support
-Plug 'othree/html5.vim'
-Plug 'evanleck/vim-svelte', {'branch': 'main'}
 
 call plug#end()
 
@@ -209,9 +195,6 @@ endfunction
 
 " Ag call a modified version of Ag where first arg is directory to search
 command! -bang -nargs=+ -complete=dir Ag call s:ag_in(<bang>0, <f-args>)
-
-" Svelte preprocessor
-let g:svelte_preprocessors = ['typescript']
 
 "=================================================================================
 " theming

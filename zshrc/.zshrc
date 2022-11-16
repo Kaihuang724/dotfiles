@@ -99,8 +99,8 @@ alias zshconfig="vim ~/.zshrc"
 alias nvimconfig="vim ~/.config/nvim/init.vim"
 alias weather="curl wttr.in"
 alias ls="exa"
+alias lt="exa --tree --level=3"
 alias vim="nvim"
-alias open="dolphin"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
