@@ -143,3 +143,4 @@ fi
 
 # Starship initialize
 eval "$(starship init zsh)"
+export GOPATH=$HOME/go
